@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-neutral-950 text-neutral-100 antialiased selection:bg-neutral-800 selection:text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B.U. | Motion Designer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Playfair Display Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Playfair Display"', 'serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    letterSpacing: {
+                        widest: '.2em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for clean aesthetics */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B1215;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2B2D31;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5C6B73;
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col font-sans bg-[#0B1215] text-[#F6F4F1]">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-30 bg-[#0B1215]/90 backdrop-blur-md border-b border-[#5C6B73]/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 flex items-baseline justify-between">
+            <!-- Left Branding -->
+            <div class="flex items-baseline space-x-3">
+                <a href="#" class="text-xl tracking-widest font-bold text-[#F6F4F1] uppercase hover:opacity-80 transition-opacity leading-none">
+                    B.U. <span class="text-[#5C6B73] font-normal mx-2">|</span> <span class="text-xs tracking-wider text-[#F6F4F1]/90 font-bold">Motion Designer</span>
+                </a>
+            </div>
+
+            <!-- Right Nav Links -->
+            <div class="flex items-baseline space-x-6">
+                <!-- About Link -->
+                <button id="openAboutBtn" class="text-xs uppercase tracking-widest font-bold text-[#F6F4F1] hover:text-[#D97757] transition-colors p-0 leading-none">
+                    About
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-12 py-10 sm:py-14">
+        <!-- Video Portfolio Grid: 3-across layout with adjusted gap -->
+        <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+            <!-- Grid Items JS Generated -->
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <div id="emptyState" class="hidden text-center py-24 border border-dashed border-[#5C6B73]/40 rounded-2xl">
+            <p class="text-[#F6F4F1]/70 mb-4 text-sm font-semibold">No projects available.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#5C6B73]/20 py-8 text-[#F6F4F1]/80 text-xs font-semibold">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>© <span id="year"></span> B.U. Motion Studio. All rights reserved.</div>
+            <div class="flex space-x-6 text-[#F6F4F1]">
+                <a href="https://www.youtube.com/channel/UCwlkObyScphuZ6JLkjAxmxw" target="_blank" rel="noopener noreferrer" class="hover:text-[#D97757] transition-colors">YouTube</a>
+                <a href="https://www.instagram.com/digitalbeatdown/" target="_blank" rel="noopener noreferrer" class="hover:text-[#D97757] transition-colors">Instagram</a>
+                <a href="https://www.linkedin.com/in/benjaminulik/" target="_blank" rel="noopener noreferrer" class="hover:text-[#D97757] transition-colors">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PASSWORD MODAL -->
+    <div id="passwordModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/85 backdrop-blur-md p-4 transition-opacity duration-300">
+        <div class="bg-[#0B1215] border border-[#5C6B73]/40 rounded-2xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl text-[#F6F4F1]">
+            <button id="closePasswordModalBtn" class="absolute top-5 right-5 text-[#F6F4F1] hover:text-[#D97757] transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-[#1E2022] border border-[#5C6B73]/40 rounded-full flex items-center justify-center mx-auto mb-3 text-[#D97757]">
+                    <svg class="w-6 h-6 stroke-[2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-[#F6F4F1]">Protected Project</h3>
+                <p id="passwordProjectTitle" class="text-sm font-normal text-[#F6F4F1]/70 mt-1">Please enter the password to view this reel.</p>
+            </div>
+            <form id="passwordForm" class="space-y-4">
+                <div>
+                    <input type="password" id="passwordInput" placeholder="Enter Password" class="w-full bg-[#1E2022] border border-[#5C6B73]/50 rounded-lg px-4 py-3 text-sm text-[#F6F4F1] placeholder-[#F6F4F1]/40 focus:outline-none focus:border-[#D97757] text-center font-mono tracking-widest" required autocomplete="off">
+                    <p id="passwordError" class="text-xs text-[#D97757] mt-2 text-center font-semibold hidden">Incorrect password. Please try again.</p>
+                </div>
+                <button type="submit" class="w-full py-3 bg-[#F6F4F1] text-[#11181C] font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-[#D97757] hover:text-white transition-colors">
+                    Unlock & Play
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIDEO PLAYER MODAL -->
+    <div id="videoModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/95 backdrop-blur-xl transition-opacity duration-300">
+        <!-- Close Button (Top Right corner) -->
+        <button id="closeVideoModalBtn" class="absolute top-6 right-6 sm:top-8 sm:right-8 z-50 text-[#F6F4F1] hover:text-[#D97757] bg-[#1E2022] hover:bg-[#2B2D31] p-3 rounded-full transition-all transform hover:scale-105 border border-[#5C6B73]/40 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span class="sr-only">Close Video</span>
+        </button>
+
+        <!-- Video Container -->
+        <div class="w-full max-w-5xl px-4 sm:px-6 aspect-video">
+            <div id="playerContainer" class="w-full h-full bg-[#1E2022] rounded-lg overflow-hidden shadow-2xl relative border border-[#5C6B73]/40">
+                <!-- iFrame dynamic insertion -->
+            </div>
+            <div class="mt-4 flex justify-between items-center px-1">
+                <h2 id="modalVideoTitle" class="text-lg font-bold text-[#F6F4F1] tracking-wide"></h2>
+                <span id="modalVideoCategory" class="text-xs uppercase tracking-widest font-bold text-[#D97757]"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT ME MODAL -->
+    <div id="aboutModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black/80 backdrop-blur-md p-4 transition-opacity duration-300">
+        <div class="bg-[#0B1215] border border-[#5C6B73]/40 rounded-2xl max-w-3xl w-full p-6 sm:p-10 relative overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto text-[#F6F4F1]">
+            <!-- Close Button -->
+            <button id="closeAboutModalBtn" class="absolute top-6 right-6 text-[#F6F4F1] hover:text-[#D97757] bg-[#0B1215]/80 backdrop-blur-md p-2 rounded-full border border-[#5C6B73]/40 transition-colors z-10">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <!-- Stacked Layout: Full-Width Banner Image Across + Bio & Clients Below -->
+            <div class="space-y-8">
+                <!-- Full-Width Profile Image Across -->
+                <div class="w-full aspect-[16/9] sm:aspect-[21/9] rounded-xl overflow-hidden bg-[#1E2022] border border-[#5C6B73]/40 relative group">
+                    <img src="https://drive.google.com/thumbnail?id=1OLh7B68xjQX1OLAcwY26pW8gWKgYY6vK&sz=w1600" 
+                         alt="B.U. Portrait" 
+                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                         onerror="this.src='https://placehold.co/1200x500/171717/737373?text=B.U.+Portrait'">
+                </div>
+
+                <!-- About Content -->
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-3xl font-bold tracking-wide text-[#F6F4F1] mb-1">B.U.</h2>
+                        <p class="text-xs uppercase tracking-widest text-[#D97757] font-bold">Senior Motion Designer & Creative Director</p>
+                    </div>
+
+                    <div class="h-px bg-[#5C6B73]/30 w-full"></div>
+
+                    <div class="text-[#F6F4F1] text-sm leading-relaxed space-y-4 font-semibold">
+                        <p>
+                            As a motion designer hailing from Milwaukee, WI, I am driven by my passion for learning and tackling a diverse range of projects. Holistically thinking from concept to final execution. From 2D explainer videos to fast-paced social media content and even 3D product breakdowns, I am always eager to push pixels to the next level.
+                        </p>
+                        <p>
+                            When I'm not behind a computer, I enjoy spending quality time with my wife and children. I also have a love for early mornings spent watching Liverpool games and getting outdoors. Fueled by my addiction for growth and creativity, I am ready to bring my unique skill set to your next project.
+                        </p>
+                    </div>
+
+                    <!-- Clients -->
+                    <div class="pt-2">
+                        <h3 class="text-xs uppercase tracking-widest text-[#F6F4F1]/80 font-bold mb-3">Clients</h3>
+                        <div class="flex flex-wrap gap-2 text-xs font-bold">
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">Subaru</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">NY Yankees</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">NY Rangers</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">Cleveland Browns</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">Harley Davidson</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">General Motors</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">Kia</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">Nissan</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">NFL Canada</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">LPGA</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">2K Games (WWE, NBA, and PGA)</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#F6F4F1] rounded-full border border-[#5C6B73]/50">Madison Square Garden</span>
+                            <span class="px-3 py-1 bg-[#1E2022] text-[#D97757] rounded-full border border-[#5C6B73]/50">+ more</span>
+                        </div>
+                    </div>
+
+                    <!-- Contact & Inquiries -->
+                    <div class="pt-4 border-t border-[#5C6B73]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="text-xs text-[#F6F4F1]/70 uppercase tracking-wider font-bold">Direct Contact</div>
+                            <a href="mailto:hello@bu-motion.com" class="text-sm font-bold text-[#F6F4F1] hover:text-[#D97757] hover:underline">hello@bu-motion.com</a>
+                        </div>
+                        <a href="mailto:hello@bu-motion.com" class="inline-flex items-center justify-center px-5 py-2.5 bg-[#F6F4F1] text-[#11181C] font-bold text-xs uppercase tracking-wider rounded-full hover:bg-[#D97757] hover:text-white transition-colors">
+                            Available For Freelance
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Initial Projects Array (21 projects for 7 complete rows of 3, bottom 3 password-protected)
+        const INITIAL_PROJECTS = [
+            {
+                id: '1',
+                title: 'Sports Social',
+                category: 'Fox Hammer Media',
+                url: 'https://youtu.be/mSX4ZYFjP9I',
+                type: 'youtube',
+                videoId: 'mSX4ZYFjP9I',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1ojVpy-vpm1idrzwPf3ixl6TCY70WTJLg&sz=w1200',
+                protected: false
+            },
+            {
+                id: '2',
+                title: 'Reel',
+                category: 'Motion Design',
+                url: 'https://youtu.be/X0fuTCOPIU0',
+                type: 'youtube',
+                videoId: 'X0fuTCOPIU0',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1X-tm68hF_ebaa4gSkw7_0eZh8ZDwaWLV&sz=w1200',
+                protected: false
+            },
+            {
+                id: '3',
+                title: 'Nissan Touchscreen Attract Loop',
+                category: 'DCI',
+                url: 'https://youtu.be/jbgqZFjlaQs',
+                type: 'youtube',
+                videoId: 'jbgqZFjlaQs',
+                thumbnail: 'https://drive.google.com/thumbnail?id=13KhtHH9AFRwhYg4QPo7Zz-SPdEy9aWUo&sz=w1200',
+                protected: false
+            },
+            {
+                id: '4',
+                title: 'LPGA Schedule Release',
+                category: 'Fox Hammer Media',
+                url: 'https://youtu.be/ehCpHFnWmyo',
+                type: 'youtube',
+                videoId: 'ehCpHFnWmyo',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1ZhXjDuJfTSPmAm6hriCTVG26XvrNV8kM&sz=w1200',
+                protected: false
+            },
+            {
+                id: '5',
+                title: 'Broncos Gameday',
+                category: 'Fox Hammer Media',
+                url: 'https://youtu.be/iOSKNMUHjlk',
+                type: 'youtube',
+                videoId: 'iOSKNMUHjlk',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1_4RgR9aHZ1lvbGahOipVkMXNCjaV9a0x&sz=w1200',
+                protected: false
+            },
+            {
+                id: '6',
+                title: 'Company Website',
+                category: 'DCI',
+                url: 'https://youtu.be/lBxxX41M4_c',
+                type: 'youtube',
+                videoId: 'lBxxX41M4_c',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1ZQrnBCrbyAd8XeUkEflyjP-km6yEYhdv&sz=w1200',
+                protected: false
+            },
+            {
+                id: '7',
+                title: 'G League Matchup',
+                category: 'Fox Hammer Media',
+                url: 'https://youtu.be/29BmEeGq45o',
+                type: 'youtube',
+                videoId: '29BmEeGq45o',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1sbvNG4xdRAureduMUaNk0HYBB4oDswvI&sz=w1200',
+                protected: false
+            },
+            {
+                id: '8',
+                title: 'Spurs Attendance',
+                category: 'Fox Hammer Media',
+                url: 'https://youtu.be/u_AaTdtfxKA',
+                type: 'youtube',
+                videoId: 'u_AaTdtfxKA',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1cncwktrEVkmq5JY1KYwbWXVOYRQGcjQ6&sz=w1200',
+                protected: false
+            },
+            {
+                id: '9',
+                title: 'Nissan Service Attract Loop',
+                category: 'DCI',
+                url: 'https://youtu.be/QG8AOTy8O-c',
+                type: 'youtube',
+                videoId: 'QG8AOTy8O-c',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1zBYmubqngQzK5L9YDNMyAdhjhvqxclAn&sz=w1200',
+                protected: false
+            },
+            {
+                id: '10',
+                title: 'St. Lorenz Logo Reveal',
+                category: 'James Saleska',
+                url: 'https://youtu.be/ppDPYNNX3-s',
+                type: 'youtube',
+                videoId: 'ppDPYNNX3-s',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1VSiXAARvCvmHzADKXgqRoM9KEHFCj8NK&sz=w1200',
+                protected: false
+            },
+            {
+                id: '11',
+                title: 'Kicks Color Studio Reel',
+                category: 'DCI',
+                url: 'https://youtu.be/rHqPwftgh1Q',
+                type: 'youtube',
+                videoId: 'rHqPwftgh1Q',
+                thumbnail: 'https://drive.google.com/thumbnail?id=181nq_KhhstQfs0QA1NdfiZdZltew0_-3&sz=w1200',
+                protected: false
+            },
+            {
+                id: '12',
+                title: 'G League POTM',
+                category: 'Fox Hammer Media',
+                url: 'https://youtube.com/shorts/5-MVw78TotA',
+                type: 'youtube',
+                videoId: '5-MVw78TotA',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1W9quxHN3ISewQiqPbZTQS1XOW3NGzsHw&sz=w1200',
+                protected: false
+            },
+            {
+                id: '13',
+                title: 'NWSL Schedule Release',
+                category: 'Fox Hammer Media',
+                url: 'https://youtube.com/shorts/2y-O1xJHmXs',
+                type: 'youtube',
+                videoId: '2y-O1xJHmXs',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1cQY1EfL_yeIT5XgE4moJRomOErJpoM_B&sz=w1200',
+                protected: false
+            },
+            {
+                id: '14',
+                title: 'Door Edge Protector Ad',
+                category: 'DCI',
+                url: 'https://youtu.be/P0cpYKlxQLs',
+                type: 'youtube',
+                videoId: 'P0cpYKlxQLs',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1m08mUMKbN6QyRdZGFhYfQGFR7C0VVuCe&sz=w1200',
+                protected: false
+            },
+            {
+                id: '15',
+                title: 'Subaru Touchscreen Attract Loop',
+                category: 'DCI',
+                url: 'https://youtu.be/RMWKlc6qTZ4',
+                type: 'youtube',
+                videoId: 'RMWKlc6qTZ4',
+                thumbnail: 'https://drive.google.com/thumbnail?id=18dtFKDqVIzoi15J1Po6h0sjHKm91-Ro4&sz=w1200',
+                protected: false
+            },
+            {
+                id: '16',
+                title: 'Nissan Service Retention',
+                category: 'DCI',
+                url: 'https://youtu.be/WzrsPpEq8v4',
+                type: 'youtube',
+                videoId: 'WzrsPpEq8v4',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1UKrNhYlVbbGBEhXB_v6i_GgdkQ0j8URD&sz=w1200',
+                protected: false
+            },
+            {
+                id: '17',
+                title: 'Motion Walkthrough',
+                category: 'DCI',
+                url: 'https://youtu.be/l3HxLsdnL7E',
+                type: 'youtube',
+                videoId: 'l3HxLsdnL7E',
+                thumbnail: 'https://drive.google.com/thumbnail?id=19_N4Hn0n_SHQXc7siepg9akuwtGlhc5e&sz=w1200',
+                protected: false
+            },
+            {
+                id: '18',
+                title: 'BMW Audits App',
+                category: 'DCI',
+                url: 'https://youtu.be/ZpVLT9bJBZc',
+                type: 'youtube',
+                videoId: 'ZpVLT9bJBZc',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1ttA9JcC3_AY-JRtWfTyUSL4tisFlZ3l3&sz=w1200',
+                protected: true
+            },
+            {
+                id: '19',
+                title: 'DCI Capabilities',
+                category: 'DCI',
+                url: 'https://youtu.be/fN6cl0mHHaA',
+                type: 'youtube',
+                videoId: 'fN6cl0mHHaA',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1c-01L3yuquNGyK_vtGbzkGwOI-6pC-1X&sz=w1200',
+                protected: true
+            },
+            {
+                id: '20',
+                title: 'Nissan Future Explainer',
+                category: 'DCI',
+                url: 'https://youtu.be/vhwMPs1onRs',
+                type: 'youtube',
+                videoId: 'vhwMPs1onRs',
+                thumbnail: 'https://drive.google.com/thumbnail?id=11O-lB7g3P6SEU0wkUuP9awblQ02YIETN&sz=w1200',
+                protected: true
+            },
+            {
+                id: '21',
+                title: 'Joola Dekel Bar Ad',
+                category: 'Fox Hammer Media',
+                url: 'https://youtube.com/shorts/msyRrINR1II',
+                type: 'youtube',
+                videoId: 'msyRrINR1II',
+                thumbnail: 'https://drive.google.com/thumbnail?id=1fykKQ40VPmHtLwjOo6vR9zYexafPiWM3&sz=w1200',
+                protected: false
+            }
+        ];
+
+        // Global State
+        let projects = [...INITIAL_PROJECTS];
+        let isUnlocked = false;
+        let pendingProject = null;
+        const PORTFOLIO_PASSWORD = 'BU2027';
+
+        // DOM Elements
+        const videoGrid = document.getElementById('videoGrid');
+        const emptyState = document.getElementById('emptyState');
+        const videoModal = document.getElementById('videoModal');
+        const closeVideoModalBtn = document.getElementById('closeVideoModalBtn');
+        const playerContainer = document.getElementById('playerContainer');
+        const modalVideoTitle = document.getElementById('modalVideoTitle');
+        const modalVideoCategory = document.getElementById('modalVideoCategory');
+
+        const aboutModal = document.getElementById('aboutModal');
+        const openAboutBtn = document.getElementById('openAboutBtn');
+        const closeAboutModalBtn = document.getElementById('closeAboutModalBtn');
+
+        const passwordModal = document.getElementById('passwordModal');
+        const closePasswordModalBtn = document.getElementById('closePasswordModalBtn');
+        const passwordForm = document.getElementById('passwordForm');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordError = document.getElementById('passwordError');
+        const passwordProjectTitle = document.getElementById('passwordProjectTitle');
+
+        // Render Portfolio Grid
+        function renderGrid() {
+            if (!videoGrid) return;
+
+            if (projects.length === 0) {
+                videoGrid.classList.add('hidden');
+                if (emptyState) emptyState.classList.remove('hidden');
+                return;
+            }
+
+            videoGrid.classList.remove('hidden');
+            if (emptyState) emptyState.classList.add('hidden');
+            videoGrid.innerHTML = '';
+
+            projects.forEach((project) => {
+                const locked = project.protected && !isUnlocked;
+
+                const card = document.createElement('div');
+                card.className = 'group relative aspect-square rounded-xl overflow-hidden bg-[#1E2022] border border-[#5C6B73]/30 cursor-pointer shadow-lg transition-all duration-500 hover:border-[#D97757]/60 hover:shadow-2xl';
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', `${project.title} - ${locked ? 'Password Protected' : 'Play Video'}`);
+
+                card.innerHTML = `
+                    <img src="${project.thumbnail}"
+                         alt="${project.title}"
+                         loading="lazy"
+                         class="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 ${locked ? 'brightness-75' : ''}"
+                         onerror="this.src='https://placehold.co/1200x1200/1E2022/F6F4F1?text=${encodeURIComponent(project.title)}'">
+
+                    ${locked ? `
+                        <div class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-[#0B1215]/85 backdrop-blur-md border border-[#5C6B73]/50 flex items-center justify-center text-[#D97757] shadow-md">
+                            <svg class="w-4 h-4 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                    ` : ''}
+
+                    <!-- Bottom-Aligned Hover Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0B1215]/95 via-[#0B1215]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <div class="flex items-end justify-between gap-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <div class="space-y-1">
+                                <h3 class="text-sm font-bold uppercase tracking-widest text-[#D97757] leading-none">${project.title}</h3>
+                                <p class="text-sm font-light text-[#F6F4F1] leading-none">${project.category}</p>
+                            </div>
+                            <span class="text-sm font-semibold uppercase tracking-wider text-[#F6F4F1]/90 leading-none shrink-0 flex items-center gap-1.5">
+                                ${locked ? 'Unlock' : 'Play'}
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                `;
+
+                const handleSelect = () => handleProjectClick(project);
+                card.addEventListener('click', handleSelect);
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleSelect();
+                    }
+                });
+
+                videoGrid.appendChild(card);
+            });
+        }
+
+        // Handle Project Selection
+        function handleProjectClick(project) {
+            if (project.protected && !isUnlocked) {
+                pendingProject = project;
+                openPasswordModal(project);
+            } else {
+                openVideoModal(project);
+            }
+        }
+
+        // Password Modal Controls
+        function openPasswordModal(project) {
+            if (!passwordModal) return;
+            if (passwordProjectTitle) {
+                passwordProjectTitle.textContent = `Enter password to unlock "${project.title}".`;
+            }
+            if (passwordInput) passwordInput.value = '';
+            if (passwordError) passwordError.classList.add('hidden');
+            passwordModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                if (passwordInput) passwordInput.focus();
+            }, 50);
+        }
+
+        function closePasswordModal() {
+            if (!passwordModal) return;
+            passwordModal.classList.add('hidden');
+            pendingProject = null;
+            document.body.style.overflow = '';
+        }
+
+        // Video Player Modal Controls
+        function openVideoModal(project) {
+            if (!videoModal || !playerContainer) return;
+
+            let embedSrc = '';
+            if (project.type === 'youtube') {
+                embedSrc = `https://www.youtube-nocookie.com/embed/${project.videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+            } else if (project.type === 'vimeo') {
+                embedSrc = `https://player.vimeo.com/video/${project.videoId}?autoplay=1&dnt=1`;
+            }
+
+            playerContainer.innerHTML = `
+                <iframe
+                    src="${embedSrc}"
+                    title="${project.title}"
+                    class="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            `;
+
+            if (modalVideoTitle) modalVideoTitle.textContent = project.title;
+            if (modalVideoCategory) modalVideoCategory.textContent = project.category;
+
+            videoModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            if (!videoModal) return;
+            videoModal.classList.add('hidden');
+            if (playerContainer) playerContainer.innerHTML = '';
+            document.body.style.overflow = '';
+        }
+
+        // About Modal Controls
+        function openAboutModal() {
+            if (!aboutModal) return;
+            aboutModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAboutModal() {
+            if (!aboutModal) return;
+            aboutModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Event Listeners
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const entered = passwordInput ? passwordInput.value.trim() : '';
+                if (entered === PORTFOLIO_PASSWORD) {
+                    isUnlocked = true;
+                    const projectToPlay = pendingProject;
+                    closePasswordModal();
+                    renderGrid();
+                    if (projectToPlay) {
+                        openVideoModal(projectToPlay);
+                    }
+                } else {
+                    if (passwordError) passwordError.classList.remove('hidden');
+                    if (passwordInput) {
+                        passwordInput.value = '';
+                        passwordInput.focus();
+                    }
+                }
+            });
+        }
+
+        if (closePasswordModalBtn) closePasswordModalBtn.addEventListener('click', closePasswordModal);
+        if (passwordModal) {
+            passwordModal.addEventListener('click', (e) => {
+                if (e.target === passwordModal) closePasswordModal();
+            });
+        }
+
+        if (closeVideoModalBtn) closeVideoModalBtn.addEventListener('click', closeVideoModal);
+        if (videoModal) {
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) closeVideoModal();
+            });
+        }
+
+        if (openAboutBtn) openAboutBtn.addEventListener('click', openAboutModal);
+        if (closeAboutModalBtn) closeAboutModalBtn.addEventListener('click', closeAboutModal);
+        if (aboutModal) {
+            aboutModal.addEventListener('click', (e) => {
+                if (e.target === aboutModal) closeAboutModal();
+            });
+        }
+
+        // Close modals on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (videoModal && !videoModal.classList.contains('hidden')) closeVideoModal();
+                if (passwordModal && !passwordModal.classList.contains('hidden')) closePasswordModal();
+                if (aboutModal && !aboutModal.classList.contains('hidden')) closeAboutModal();
+            }
+        });
+
+        // Initialize Application
+        function init() {
+            const yearElem = document.getElementById('year');
+            if (yearElem) {
+                yearElem.textContent = new Date().getFullYear();
+            }
+            renderGrid();
+        }
+
+        init();
+    </script>
+</body>
+</html>
